@@ -1,48 +1,110 @@
+# ==============================================================================
+# AssistPro OS - Orquestração Docker Compose para Nuvem & SaaS
+# Suporte para Centenas de Milhares de Ordens de Serviço por Ano
+# ==============================================================================
+
 version: '3.8'
 
 services:
-  # ==========================================
-  # 🐘 BANCO DE DADOS POSTGRESQL (ALTA ESCALA)
-  # ==========================================
+  # ----------------------------------------------------------------------------
+  # Servidor Central AssistPro OS (API Node.js + Frontend Vite Integrado)
+  # ----------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: assistpro_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3001}:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - HOST=0.0.0.0
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-assistpro}:${POSTGRES_PASSWORD:-assistpro_secure_pass_2026}@postgres:5432/${POSTGRES_DB:-assistpro_db}?schema=public
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET:-assistpro_jwt_cloud_secret_high_performance_key_2026}
+      - CORS_ORIGIN=*
+    volumes:
+      - uploads_data:/app/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - assistpro_network
+
+  # ----------------------------------------------------------------------------
+  # Banco de Dados PostgreSQL 16 Enterprise (Alta Concorrência e Escala)
+  # ----------------------------------------------------------------------------
   postgres:
     image: postgres:16-alpine
-    container_name: scooby_postgres
-    restart: always
+    container_name: assistpro_postgres
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: scoobypassword
-      POSTGRES_DB: scoobydb
-      TZ: America/Sao_Paulo
+      POSTGRES_USER: ${POSTGRES_USER:-assistpro}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-assistpro_secure_pass_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-assistpro_db}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    # Tuning de Alta Performance para Centenas de Milhares de Registros
+    command: >
+      postgres 
+      -c max_connections=200
+      -c shared_buffers=256MB
+      -c effective_cache_size=768MB
+      -c work_mem=16MB
+      -c maintenance_work_mem=64MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
+      -c random_page_cost=1.1
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d scoobydb"]
-      interval: 5s
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-assistpro} -d ${POSTGRES_DB:-assistpro_db}"]
+      interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - assistpro_network
 
-  # ==========================================
-  # ⚡ CACHE & PERFORMANCE REDIS
-  # ==========================================
+  # ----------------------------------------------------------------------------
+  # Cache e Filas em Memória Redis 7 (Tempos de Resposta Sub-Milissegundo)
+  # ----------------------------------------------------------------------------
   redis:
     image: redis:7-alpine
-    container_name: scooby_redis
-    restart: always
-    command: redis-server --appendonly yes
+    container_name: assistpro_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
+      interval: 10s
+      timeout: 3s
       retries: 5
+    networks:
+      - assistpro_network
 
+# ------------------------------------------------------------------------------
+# Volumes Persistentes de Dados
+# ------------------------------------------------------------------------------
 volumes:
   postgres_data:
-    name: scooby_postgres_data
+    name: assistpro_postgres_data
   redis_data:
-    name: scooby_redis_data
+    name: assistpro_redis_data
+  uploads_data:
+    name: assistpro_uploads_data
+
+# ------------------------------------------------------------------------------
+# Rede Interna Isolada de Alta Velocidade
+# ------------------------------------------------------------------------------
+networks:
+  assistpro_network:
+    name: assistpro_network
+    driver: bridge

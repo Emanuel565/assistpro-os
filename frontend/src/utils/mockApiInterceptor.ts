@@ -157,11 +157,17 @@ async function handleMockRequest(urlStr: string, init?: RequestInit): Promise<Re
 
     if (method === 'GET') {
       const search = parsedUrl.searchParams.get('search')?.toLowerCase() || '';
+      const apenasAtivas = parsedUrl.searchParams.get('apenas_ativas') === 'true';
       const prioridade = parsedUrl.searchParams.get('prioridade');
       const tipo = parsedUrl.searchParams.get('tipo_equipamento');
       const status = parsedUrl.searchParams.get('status');
 
       let filtered = [...osList];
+      if (apenasAtivas) {
+        filtered = filtered.filter(o => ['TRIAGEM', 'EM_ANDAMENTO', 'AGUARDANDO_PECA', 'AGUARDANDO_APROVACAO', 'TESTES', 'CONCLUIDO'].includes(o.status));
+      } else if (status && status !== 'TODOS') {
+        filtered = filtered.filter(o => o.status === status);
+      }
       if (search) {
         filtered = filtered.filter(o => 
           o.codigo_os?.toLowerCase().includes(search) ||
@@ -174,9 +180,6 @@ async function handleMockRequest(urlStr: string, init?: RequestInit): Promise<Re
       }
       if (tipo && tipo !== 'TODOS') {
         filtered = filtered.filter(o => o.tipo_equipamento === tipo);
-      }
-      if (status && status !== 'TODOS') {
-        filtered = filtered.filter(o => o.status === status);
       }
 
       return jsonResponse({ os: filtered });

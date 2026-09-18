@@ -14,25 +14,30 @@ const invalidateDashboardCache = async () => {
 
 const generateOSCode = async (): Promise<string> => {
   const currentYear = new Date().getFullYear();
-  const allOS = await prisma.ordemServico.findMany({
+  const lastOS = await prisma.ordemServico.findFirst({
+    where: {
+      codigo_os: {
+        startsWith: `OS-${currentYear}-`
+      }
+    },
+    orderBy: { id: 'desc' },
     select: { codigo_os: true }
   });
 
-  let maxNum = 0;
-  for (const item of allOS) {
-    const code = item.codigo_os || '';
-    const matches = code.match(/\d+/g);
+  let nextNum = 1;
+  if (lastOS && lastOS.codigo_os) {
+    const matches = lastOS.codigo_os.match(/\d+/g);
     if (matches && matches.length > 0) {
       const lastGroup = matches[matches.length - 1];
       const parsed = parseInt(lastGroup, 10);
-      if (!isNaN(parsed) && parsed > maxNum && parsed < 1000000) {
-        maxNum = parsed;
+      if (!isNaN(parsed) && parsed < 999999) {
+        nextNum = parsed + 1;
       }
     }
   }
 
-  const nextNum = (maxNum + 1).toString().padStart(4, '0');
-  return `OS-${currentYear}-${nextNum}`;
+  const formattedNum = nextNum.toString().padStart(4, '0');
+  return `OS-${currentYear}-${formattedNum}`;
 };
 
 export const createOS = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -164,11 +169,20 @@ export const createOS = async (req: AuthRequest, res: Response): Promise<void> =
 
 export const listOS = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { status, tipo_equipamento, prioridade, tecnico_id, search } = req.query;
+    const { status, tipo_equipamento, prioridade, tecnico_id, search, limit, page, apenas_ativas } = req.query;
 
     const where: any = {};
 
-    if (status && status !== 'TODOS') where.status = String(status);
+    if (apenas_ativas === 'true') {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      where.OR = [
+        { status: { in: ['TRIAGEM', 'EM_ANDAMENTO', 'AGUARDANDO_PECA', 'AGUARDANDO_APROVACAO', 'TESTES'] } },
+        { status: { in: ['CONCLUIDO', 'ENTREGUE'] }, updatedAt: { gte: thirtyDaysAgo } }
+      ];
+    } else if (status && status !== 'TODOS') {
+      where.status = String(status);
+    }
     
     if (tipo_equipamento && tipo_equipamento !== 'TODOS') {
       const tiposStr = String(tipo_equipamento);
@@ -178,7 +192,6 @@ export const listOS = async (req: AuthRequest, res: Response): Promise<void> => 
         where.tipo_equipamento = tiposStr;
       }
     } else if (req.user?.cargo === 'TECNICO_CELULAR') {
-      // Técnico de celulares e híbrido tem acesso focado em Smartphones, Tablets e Consoles/Games
       where.tipo_equipamento = { in: ['SMARTPHONE', 'TABLET', 'CONSOLE'] };
     }
 
@@ -197,21 +210,39 @@ export const listOS = async (req: AuthRequest, res: Response): Promise<void> => 
       ];
     }
 
-    const ordens = await prisma.ordemServico.findMany({
-      where,
-      include: {
-        tecnico: { select: { id: true, nome: true, login: true, cargo: true } },
-        criado_por: { select: { id: true, nome: true, login: true, cargo: true } },
-        concluido_por: { select: { id: true, nome: true, login: true, cargo: true } },
-        orcamento_enviado_por: { select: { id: true, nome: true, login: true, cargo: true } }
-      },
-      orderBy: [
-        { prioridade: 'desc' },
-        { createdAt: 'desc' }
-      ]
-    });
+    // Paginação com limite seguro para evitar estouro de memória
+    const take = limit ? Math.min(Math.max(parseInt(String(limit), 10) || 50, 1), 500) : 100;
+    const pageNum = Math.max(parseInt(String(page), 10) || 1, 1);
+    const skip = (pageNum - 1) * take;
 
-    res.json({ os: ordens });
+    const [ordens, totalCount] = await Promise.all([
+      prisma.ordemServico.findMany({
+        where,
+        take,
+        skip,
+        include: {
+          tecnico: { select: { id: true, nome: true, login: true, cargo: true } },
+          criado_por: { select: { id: true, nome: true, login: true, cargo: true } },
+          concluido_por: { select: { id: true, nome: true, login: true, cargo: true } },
+          orcamento_enviado_por: { select: { id: true, nome: true, login: true, cargo: true } }
+        },
+        orderBy: [
+          { prioridade: 'desc' },
+          { createdAt: 'desc' }
+        ]
+      }),
+      prisma.ordemServico.count({ where })
+    ]);
+
+    res.json({
+      os: ordens,
+      pagination: {
+        total: totalCount,
+        page: pageNum,
+        limit: take,
+        totalPages: Math.ceil(totalCount / take)
+      }
+    });
   } catch (error) {
     console.error('Erro ao listar OS:', error);
     res.status(500).json({ error: 'Erro ao buscar Ordens de Serviço.' });

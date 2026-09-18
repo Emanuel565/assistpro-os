@@ -129,12 +129,16 @@ model OrdemServico {
   logs                     LogHistorico[]
   mensagens_chat           MensagemChat[]
 
-  @@index([status])
-  @@index([tecnico_id])
+  @@index([status, createdAt])
+  @@index([tecnico_id, status])
   @@index([criado_por_id])
   @@index([createdAt])
   @@index([prazo_entrega])
   @@index([cliente_nome])
+  @@index([cliente_telefone])
+  @@index([cliente_whatsapp])
+  @@index([numero_serie])
+  @@index([tipo_equipamento, status])
 }
 
 model LogHistorico {

@@ -43,6 +43,7 @@ export const GerenteKanban: React.FC = () => {
   const fetchKanbanData = useCallback(async () => {
     try {
       const params = new URLSearchParams();
+      params.append('apenas_ativas', 'true');
       if (search) params.append('search', search);
       if (filtroPrioridade !== 'TODAS') params.append('prioridade', filtroPrioridade);
       if (filtroEquipamento !== 'TODOS') params.append('tipo_equipamento', filtroEquipamento);

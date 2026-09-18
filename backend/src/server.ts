@@ -116,8 +116,31 @@ if (frontendDistPath) {
   });
 }
 
+// Otimização de Performance e Concorrência do Banco de Dados
+const setupDatabaseEngine = async () => {
+  const dbUrl = process.env.DATABASE_URL || '';
+  if (dbUrl.startsWith('file:') || !dbUrl.startsWith('postgresql:')) {
+    try {
+      // Ativação do modo WAL (Write-Ahead Logging) no SQLite:
+      // Permite leituras concorrentes simultâneas com escrita sem travar o banco
+      await prisma.$queryRawUnsafe('PRAGMA journal_mode = WAL;');
+      await prisma.$queryRawUnsafe('PRAGMA synchronous = NORMAL;');
+      await prisma.$queryRawUnsafe('PRAGMA cache_size = -64000;'); // 64MB de cache na RAM
+      await prisma.$queryRawUnsafe('PRAGMA temp_store = MEMORY;');
+      await prisma.$queryRawUnsafe('PRAGMA busy_timeout = 5000;');
+      console.log('⚡ [Database] SQLite Enterprise ativado: Modo WAL, 64MB Cache RAM e Alta Concorrência.');
+    } catch (err) {
+      console.warn('⚠️ [Database] Não foi possível aplicar PRAGMAs do SQLite:', err);
+    }
+  } else {
+    console.log('🐘 [Database] Conectado ao PostgreSQL Enterprise (Alta Concorrência & Escala de Nuvem).');
+  }
+};
+
 // Inicialização do Servidor
-server.listen(PORT, HOST, () => {
+server.listen(PORT, HOST, async () => {
+  await setupDatabaseEngine();
+
   const networkIps = getLocalNetworkIPs();
   const primaryIp = networkIps[0] || '127.0.0.1';
 
