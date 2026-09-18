@@ -1,0 +1,50 @@
+{
+  "name": "assistpro-os",
+  "version": "1.0.0",
+  "description": "Sistema de Gestão Profissional para Assistências Técnicas",
+  "main": "main.cjs",
+  "author": "AssistPro Software",
+  "license": "Commercial",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.assistpro.os",
+    "productName": "AssistPro OS",
+    "directories": {
+      "output": "dist-installer"
+    },
+    "files": [
+      "main.cjs",
+      "../backend/dist/**/*",
+      "../backend/node_modules/**/*",
+      "../backend/prisma/schema.prisma",
+      "../backend/dev.db",
+      "../frontend/dist/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AssistPro OS",
+      "artifactName": "AssistPro-Setup-${version}.${ext}",
+      "uninstallDisplayName": "AssistPro OS - Desinstalar",
+      "runAfterFinish": true
+    }
+  }
+}

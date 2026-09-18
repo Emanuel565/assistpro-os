@@ -1,0 +1,17 @@
+{
+  "name": "assistpro-os-system",
+  "version": "1.0.0",
+  "description": "AssistPro OS - Sistema de Gestão para Assistência Técnica (Online & Offline)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm.cmd run dev:backend\" \"npm.cmd run dev:frontend\"",
+    "dev:backend": "cd backend && npm.cmd run dev",
+    "dev:frontend": "cd frontend && npm.cmd run dev",
+    "build": "cd backend && npm.cmd run build && cd ../frontend && npm.cmd run build",
+    "build:installer": "npm.cmd run build && cd desktop && npm.cmd run dist",
+    "install:all": "npm.cmd install && cd backend && npm.cmd install && cd ../frontend && npm.cmd install && cd ../desktop && npm.cmd install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,0 +1,237 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ConfiguracaoEmpresa {
+  id                 Int      @id @default(1)
+  nome_empresa       String   @default("AssistPro Assistência Técnica")
+  razao_social       String?  @default("AssistPro Tecnologia & Serviços")
+  cnpj_cpf           String?  @default("00.000.000/0001-00")
+  telefone           String?  @default("(00) 0000-0000")
+  whatsapp           String?  @default("(00) 90000-0000")
+  email              String?  @default("contato@assistpro.local")
+  endereco           String?  @default("Rua Principal, 100 - Centro")
+  cidade_uf          String?  @default("Sua Cidade - UF")
+  logo_url           String?
+  chave_pix          String?  @default("contato@assistpro.local")
+  banco_pix          String?  @default("Banco Inter")
+  termo_garantia     String?  @default("Garantia legal de 90 dias conforme Art. 26 do Código de Defesa do Consumidor, cobrindo exclusivamente o serviço executado e as peças substituídas.")
+  mensagem_pronto    String?  @default("Olá, *{cliente}*! 🎉 Ótima notícia! Seu equipamento *{aparelho}* (OS *{os}*) está pronto para retirada. Valor: R$ {valor}.")
+  mensagem_orcamento String?  @default("Olá, *{cliente}*! Tudo bem? Temos o orçamento técnico do seu equipamento *{aparelho}* (OS *{os}*). Valor: R$ {valor}. Podemos aprovar o serviço?")
+  updatedAt          DateTime @updatedAt
+}
+
+model Usuario {
+  id                  Int            @id @default(autoincrement())
+  nome                String
+  login               String         @unique
+  senha_hash          String
+  cargo               String         // ADMIN, GERENTE, ATENDENTE, TECNICO, TECNICO_CELULAR
+  especialidades      String         @default("[]") // JSON string: ["NOTEBOOK", "CELULAR", "PC_GAMER", "CONSOLE", "MACBOOK"]
+  status              String         @default("ONLINE") // ONLINE, OFFLINE, OCUPADO
+  avatar              String?
+  telefone            String?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  // Relacionamentos
+  os_atribuidas       OrdemServico[] @relation("TecnicoResponsavel")
+  os_criadas          OrdemServico[] @relation("CriadorOS")
+  os_concluidas       OrdemServico[] @relation("ConcluidorOS")
+  orcamentos_enviados OrdemServico[] @relation("OrcamentoEnviadoPor")
+  logs_executados     LogHistorico[]
+  notificacoes        Notificacao[]
+  mensagens_enviadas  MensagemChat[] @relation("MensagensEnviadas")
+  mensagens_recebidas MensagemChat[] @relation("MensagensRecebidas")
+  vendas_realizadas   Venda[]        @relation("VendedorVenda")
+}
+
+model ItemEstoque {
+  id                Int      @id @default(autoincrement())
+  nome              String   // ex: SSD Kingston 240GB Sata III ou Notebook Dell Core i5 Usado
+  categoria         String   // NOTEBOOK, PC_DESKTOP, PLACA_MAE, MEMORIA, SSD, TELA, BATERIA, CARREGADOR, CELULAR, CONSOLE, ACESSORIO, INSUMO, OUTRO
+  condicao          String   @default("NOVO") // NOVO, USADO, SEMINOVO
+  quantidade        Int      @default(0)
+  estoque_minimo    Int      @default(2)
+  preco_custo       Float    @default(0) // ex: R$ 150.00
+  preco_venda       Float    @default(0) // ex: R$ 300.00
+  codigo_barras     String?
+  numero_serie      String?  // Serial / IMEI do aparelho ou componente (especialmente para usados)
+  garantia_meses    Int      @default(3) // 3 meses (90 dias) padrão de garantia
+  detalhes_condicao String?  // Marcas de uso, saúde da bateria %, detalhes estéticos
+  localizacao       String?  // Gaveta A1, Vitrine 1, Prateleira 2
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  itens_venda       ItemVenda[]
+
+  @@index([categoria])
+  @@index([nome])
+  @@index([condicao])
+}
+
+model OrdemServico {
+  id                       Int            @id @default(autoincrement())
+  codigo_os                String         @unique // ex: OS-2026-0001
+  cliente_nome             String
+  cliente_telefone         String         // Telefone / Contato Geral
+  cliente_whatsapp         String?        // WhatsApp específico para mensagens e orçamentos
+  cliente_documento        String?
+  cliente_email            String?
+  
+  tipo_equipamento         String         // NOTEBOOK, SMARTPHONE, IMPRESSORA, PC_DESKTOP, CONSOLE, TABLET, OUTRO
+  marca_modelo             String
+  numero_serie             String?
+  senha_aparelho           String?
+  acessorios_inclusos      String?
+  condicoes_visuais        String?
+  
+  defeito_relatado         String
+  laudo_tecnico            String?
+  pecas_utilizadas         String?        @default("[]") // JSON array de pecas { id, nome, quantidade, preco_custo, preco_venda, preco }
+  checklist_entrada        String?        @default("{}") // JSON checklist
+  checklist_saida          String?        @default("{}") // JSON checklist de saida
+  fotos_equipamento        String?        @default("[]") // JSON array de fotos/evidências do equipamento
+  
+  orcamento_valor          Float          @default(0) // Mão de obra
+  valor_final              Float          @default(0) // Total cobrado do cliente
+  custo_pecas              Float          @default(0) // Total do custo das peças usadas
+  lucro_liquido            Float          @default(0) // Lucro real da OS (valor_final - custo_pecas)
+  
+  orcamento_enviado_em     DateTime?
+  orcamento_enviado_por_id Int?
+  orcamento_enviado_por    Usuario?       @relation("OrcamentoEnviadoPor", fields: [orcamento_enviado_por_id], references: [id])
+  
+  status                   String         @default("TRIAGEM") // TRIAGEM, EM_ANDAMENTO, AGUARDANDO_PECA, AGUARDANDO_APROVACAO, TESTES, CONCLUIDO, ENTREGUE, CANCELADO
+  prioridade               String         @default("MEDIA")   // BAIXA, MEDIA, ALTA, URGENTE
+  prazo_entrega            DateTime?
+  tempo_bancada_segundos    Int           @default(0)
+  
+  tecnico_id               Int?
+  tecnico                  Usuario?       @relation("TecnicoResponsavel", fields: [tecnico_id], references: [id])
+  
+  criado_por_id            Int
+  criado_por               Usuario        @relation("CriadorOS", fields: [criado_por_id], references: [id])
+
+  concluido_por_id         Int?
+  concluido_por            Usuario?       @relation("ConcluidorOS", fields: [concluido_por_id], references: [id])
+  
+  createdAt                DateTime       @default(now())
+  updatedAt                DateTime       @updatedAt
+  concluidoEm              DateTime?
+  entregueEm               DateTime?
+
+  logs                     LogHistorico[]
+  mensagens_chat           MensagemChat[]
+
+  @@index([status])
+  @@index([tecnico_id])
+  @@index([criado_por_id])
+  @@index([createdAt])
+  @@index([prazo_entrega])
+  @@index([cliente_nome])
+}
+
+model LogHistorico {
+  id              Int          @id @default(autoincrement())
+  os_id           Int
+  os              OrdemServico @relation(fields: [os_id], references: [id], onDelete: Cascade)
+  usuario_id      Int?
+  usuario         Usuario?     @relation(fields: [usuario_id], references: [id])
+  acao            String       // CRIACAO, ATRIBUICAO, MUDANCA_STATUS, LAUDO_ATUALIZADO, ORCAMENTO_ENVIADO, FINALIZADO, ENTREGUE
+  descricao       String
+  status_anterior String?
+  status_novo     String?
+  createdAt       DateTime     @default(now())
+
+  @@index([os_id])
+  @@index([createdAt])
+}
+
+model Notificacao {
+  id          Int      @id @default(autoincrement())
+  usuario_id  Int?
+  usuario     Usuario? @relation(fields: [usuario_id], references: [id])
+  titulo      String
+  mensagem    String
+  tipo        String   @default("INFO") // INFO, ATRIBUICAO, URGENTE, SUCESSO, ALERTA
+  os_id       Int?
+  lida        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([usuario_id])
+}
+
+model MensagemChat {
+  id              Int           @id @default(autoincrement())
+  conteudo        String
+  tipo            String        @default("TEXTO") // TEXTO, AUDIO, SISTEMA
+  audio_url       String?       // Dados/URI do áudio gravado
+  audio_duracao   Int?          // Duração em segundos
+  canal           String        @default("GERAL") // GERAL, BANCADA, DIRETO
+  remetente_id    Int
+  remetente       Usuario       @relation("MensagensEnviadas", fields: [remetente_id], references: [id])
+  destinatario_id Int?
+  destinatario    Usuario?      @relation("MensagensRecebidas", fields: [destinatario_id], references: [id])
+  os_id           Int?
+  os              OrdemServico? @relation(fields: [os_id], references: [id], onDelete: SetNull)
+  lida            Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+
+  @@index([canal])
+  @@index([createdAt])
+  @@index([remetente_id])
+  @@index([destinatario_id])
+}
+
+model Venda {
+  id                Int         @id @default(autoincrement())
+  codigo_venda      String      @unique // ex: V-2026-0001
+  cliente_nome      String?     @default("Cliente Balcão")
+  cliente_telefone  String?
+  cliente_documento String?
+  forma_pagamento   String      @default("DINHEIRO") // DINHEIRO, PIX, CARTAO_DEBITO, CARTAO_CREDITO, OUTRO
+  valor_total       Float       @default(0)
+  custo_total       Float       @default(0)
+  lucro_total       Float       @default(0)
+  desconto          Float       @default(0)
+  troco_para        Float?
+  troco_devolvido   Float?
+  observacao        String?
+
+  vendedor_id       Int
+  vendedor          Usuario     @relation("VendedorVenda", fields: [vendedor_id], references: [id])
+
+  itens             ItemVenda[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([vendedor_id])
+  @@index([createdAt])
+  @@index([forma_pagamento])
+}
+
+model ItemVenda {
+  id                Int          @id @default(autoincrement())
+  venda_id          Int
+  venda             Venda        @relation(fields: [venda_id], references: [id], onDelete: Cascade)
+  estoque_item_id   Int?
+  estoque_item      ItemEstoque? @relation(fields: [estoque_item_id], references: [id], onDelete: SetNull)
+  nome_produto      String
+  condicao          String       @default("NOVO") // NOVO, USADO, SEMINOVO
+  numero_serie      String?
+  garantia_meses    Int          @default(3)
+  quantidade        Int          @default(1)
+  preco_custo       Float        @default(0)
+  preco_unitario    Float        @default(0)
+  subtotal          Float        @default(0)
+  lucro_item        Float        @default(0)
+
+  @@index([venda_id])
+  @@index([estoque_item_id])
+}

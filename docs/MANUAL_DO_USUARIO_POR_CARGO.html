@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual do Usuário por Cargo - Scooby OS</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background-color: #ffffff;
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 26px;
+      font-weight: 900;
+      border-bottom: 3px solid #0d9488;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+    h2 {
+      color: #0f766e;
+      font-size: 19px;
+      font-weight: 800;
+      margin-top: 30px;
+      margin-bottom: 12px;
+      border-left: 4px solid #0d9488;
+      padding-left: 10px;
+    }
+    h3 {
+      color: #334155;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    p, li {
+      font-size: 13.5px;
+      color: #334155;
+    }
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 15px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      background-color: #f1f5f9;
+      color: #0f766e;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: 600;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e2e8f0;
+      margin: 30px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 12.5px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #0f766e;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    blockquote {
+      border-left: 4px solid #14b8a6;
+      margin: 15px 0;
+      padding: 10px 15px;
+      background-color: #f0fdfa;
+      color: #0f766e;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+    }
+    @media print {
+      body {
+        max-width: 100%;
+        padding: 20px;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      table, tr {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+<h1>📖 Manual do Usuário Scooby OS: Passo a Passo por Cargo</h1>
+<p><strong>Desenvolvido por Emanuel Carvalho</strong> • Scooby Assistência Técnica</p>
+<p>Este documento é o guia oficial de operação do <strong>Scooby OS</strong>, detalhando o passo a passo para cada membro da equipe: <strong>Atendentes</strong>, <strong>Técnicos Especialistas</strong>, <strong>Técnicos de Celular</strong>, <strong>Trainees</strong>, <strong>Gerentes</strong> e <strong>Administradores</strong>.</p>
+<hr>
+<h2>📑 Sumário de Módulos:</h2>
+<ol>
+<li><a href="#-1-perfil-atendente-de-balc%C3%A3o--recep%C3%A7%C3%A3o">💼 Perfil: Atendente de Balcão &amp; Recepção</a></li>
+<li><a href="#-2-servi%C3%A7os-r%C3%A1pidos-de-balc%C3%A3o--pdv-expresso">⚡ Serviços Rápidos de Balcão &amp; PDV Expresso</a></li>
+<li><a href="#-3-perfil-t%C3%A9cnico-especialista">🔧 Perfil: Técnico Especialista (Notebook, PC, Impressora)</a></li>
+<li><a href="#-4-perfil-t%C3%A9cnico-celulares--consoles">📱 Perfil: Técnico Celulares &amp; Consoles (Híbrido)</a></li>
+<li><a href="#-5-perfil-t%C3%A9cnico-trainee-em-treinamento">🎓 Perfil: Técnico Trainee (Em Treinamento)</a></li>
+<li><a href="#-6-perfil-gerente-de-oficina-triagem--kanban">🛡️ Perfil: Gerente de Oficina (Triagem &amp; Kanban)</a></li>
+<li><a href="#-7-perfil-administrador-geral">👑 Perfil: Administrador Geral (Gestão, Estoque &amp; Faturamento)</a></li>
+<li><a href="#-8-relat%C3%B3rios-gerenciais-avan%C3%A7ados">📊 Relatórios Gerenciais: Atendentes &amp; Tempo de Bancada</a></li>
+<li><a href="#-9-galeria-de-fotos-do-equipamento--rastreio-por-qr-code">📸 Galeria de Fotos do Equipamento &amp; Rastreio por QR Code</a></li>
+<li><a href="#-10-instala%C3%A7%C3%A3o-no-windows-server--rotina-de-backups">🖥️ Instalação no Windows Server &amp; Rotina de Backups</a></li>
+<li><a href="#-11-recursos-compartilhados-chat--interfone-de-voz">💬 Recursos Compartilhados: Scooby Chat &amp; Interfone de Voz</a></li>
+<li><a href="#-12-tabela-resumo-de-permiss%C3%B5es">📋 Tabela Comparativa de Permissões</a></li>
+</ol>
+<hr>
+<h2>💼 1. Perfil: Atendente de Balcão &amp; Recepção</h2>
+<h3>🎯 Principais Atribuições:</h3>
+<ul>
+<li>Recepção do cliente e abertura de chamados técnicos.</li>
+<li><strong>Digitação Manual / Retroativa de OS:</strong> Opção de manter números sequenciais do Bling ou sistemas antigos com data e hora personalizadas.</li>
+<li><strong>Registro fotográfico de entrada</strong> do equipamento (avarias, riscos e acessórios).</li>
+<li>Aplicação do prazo padrão de 3 dias úteis.</li>
+<li>Disparo de orçamentos e avisos de pronto pelo WhatsApp.</li>
+<li>Entrega do equipamento e recebimento de valores.</li>
+<li>Correção de cadastros (Edição e Exclusão de OSs).</li>
+</ul>
+<h3>🚀 Passo a Passo no Balcão:</h3>
+<ol>
+<li><p><strong>Abrir Nova Ordem de Serviço (Padrão ou Importação Manual):</strong></p>
+<ul>
+<li>Faça login e clique no botão <strong>&quot;+ Nova Ordem de Serviço&quot;</strong>.</li>
+<li><strong>Importação Manual / Sequencial do Bling (Opcional):</strong> Marque a caixa <em>&quot;Digitar número de OS manualmente (Importar do Bling)&quot;</em>. O sistema libera a edição do número da OS (ex: <code>OS-1045</code>) e os campos de <strong>Data e Hora Retroativa</strong>.</li>
+<li>Digite o <strong>Nome</strong> e <strong>Telefone / WhatsApp</strong> do cliente.</li>
+<li>Selecione o tipo de equipamento (<em>Notebook, Smartphone, PC Desktop, Console, Impressora</em>) e modelo.</li>
+<li><strong>Anexar Fotos de Entrada (Opcional):</strong> Clique em <strong><code>+ Tirar / Anexar Fotos</code></strong> para fotografar o aparelho com a câmera do celular/tablet ou enviar imagens da galeria.</li>
+<li>Descreva o defeito informado pelo cliente.</li>
+<li><strong>Prazo Automático de 3 Dias:</strong> O sistema já preenche a data para 3 dias úteis. Use os atalhos <code>⚡ 1 dia</code>, <code>⭐ 3 dias</code>, <code>🔧 5 dias</code> ou escolha qualquer data personalizada.</li>
+<li>Clique em <strong>&quot;Criar Ordem de Serviço&quot;</strong> e imprima a via do cliente com o <strong>QR Code</strong> de rastreio.</li>
+</ul>
+</li>
+<li><p><strong>Enviar Mensagens de WhatsApp com 1 Clique:</strong></p>
+<ul>
+<li>Clique em qualquer OS para abrir os detalhes.</li>
+<li>Utilize os botões automáticos:<ul>
+<li><code>📋 Enviar Orçamento</code> (Dispara laudo e valor aprovado)</li>
+<li><code>🎉 Avisar: Pronto!</code> (Notifica que o aparelho pode ser retirado)</li>
+<li><code>📦 Avisar Peça</code> (Informa que a peça está em trânsito)</li>
+<li><code>🧪 Avisar Testes</code> (Informa que o aparelho está na fase final de testes)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Editar ou Excluir OS:</strong></p>
+<ul>
+<li>Se cometeu algum erro na digitação, clique em <strong>&quot;Editar OS&quot;</strong> para alterar cliente, modelo, defeito ou valores.</li>
+<li>Se o cliente desistir no balcão antes do início, clique em <strong>&quot;Excluir&quot;</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>⚡ 2. Serviços Rápidos de Balcão &amp; PDV Expresso</h2>
+<p>O <strong>Módulo de Venda Balcão (PDV)</strong> foi projetado para agilidade máxima no atendimento diário da loja:</p>
+<h3>🚀 Recursos do PDV:</h3>
+<ol>
+<li><strong>Grid de Serviços Rápidos (1 Clique):</strong><ul>
+<li>Botões instantâneos para:<ul>
+<li>📄 <strong>Impressão Preto &amp; Branco</strong></li>
+<li>🎨 <strong>Impressão Colorida</strong></li>
+<li>💼 <strong>Elaboração / Impressão de Currículo</strong></li>
+<li>🖼️ <strong>Montagem / Edição de Fotos (3x4)</strong></li>
+<li>📑 <strong>Digitalização / Scanner</strong></li>
+<li>🛡️ <strong>Aplicação de Película</strong></li>
+<li>💾 <strong>Backup de Dados / Pen Drive</strong></li>
+<li>🔌 <strong>Desobstrução / Limpeza de Conector</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Atalhos de Quantidade Rápida:</strong><ul>
+<li>No carrinho, use os botões <code>+5</code>, <code>+10</code> e <code>+20</code> para somar cópias de impressão rapidamente sem precisar digitar.</li>
+</ul>
+</li>
+<li><strong>Item / Serviço Avulso:</strong><ul>
+<li>Clique em <strong><code>+ Item / Serviço Avulso</code></strong> para lançar qualquer produto ou serviço especial na hora, digitando o nome e o valor livremente.</li>
+</ul>
+</li>
+<li><strong>⚙️ Tabela de Preços Fixos Editáveis (Admin / Gerente):</strong><ul>
+<li>Administradores e Gerentes possuem o botão <strong><code>⚙️ Editar Preços Fixos</code></strong> no topo do painel para alterar valores de venda, custos e cadastrar novos serviços padrão salvos no banco.</li>
+</ul>
+</li>
+<li><strong>Formas de Pagamento &amp; Comprovante Térmico:</strong><ul>
+<li>Dinheiro (com cálculo automático de troco), PIX, Cartão Débito e Cartão Crédito.</li>
+<li>Emissão de comprovante térmico e envio direto no WhatsApp do cliente com discriminação clara de serviços vs. produtos com garantia.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>🔧 3. Perfil: Técnico Especialista</h2>
+<h3>🎯 Principais Atribuições:</h3>
+<ul>
+<li>Diagnóstico de hardware, eletrônica de bancada e reparo de circuitos.</li>
+<li><strong>Cronômetro de Bancada:</strong> Registro exato do tempo trabalhado no serviço.</li>
+<li><strong>Fotos Técnicas:</strong> Registro de evidências de micro-solda, peças oxidadas ou danificadas.</li>
+<li>Elaboração do Laudo Técnico e autonomia na precificação de serviços e mão de obra.</li>
+<li>Lançamento de peças utilizadas do catálogo de estoque.</li>
+</ul>
+<h3>🚀 Passo a Passo na Bancada:</h3>
+<ol>
+<li><strong>Acessar &quot;Minha Bancada&quot;:</strong><ul>
+<li>Ao fazer login, o sistema abre diretamente na sua fila de trabalho.</li>
+</ul>
+</li>
+<li><strong>Iniciar o Reparo e o Cronômetro:</strong><ul>
+<li>Clique no botão <strong>&quot;Bancada&quot;</strong> no cartão do aparelho.</li>
+<li>Clique em <strong><code>▶ Iniciar Cronômetro</code></strong> para registrar o tempo real de trabalho em bancada.</li>
+</ul>
+</li>
+<li><strong>Preencher Laudo &amp; Procedimentos:</strong><ul>
+<li>Escreva o diagnóstico ou clique nas sugestões rápidas (<code>+ Desoxidação</code>, <code>+ Troca de Display</code>, <code>+ Reballing BGA</code>, etc.).</li>
+</ul>
+</li>
+<li><strong>Adicionar Fotos Técnicas:</strong><ul>
+<li>Na seção <strong>&quot;Fotos &amp; Evidências do Aparelho&quot;</strong>, clique em <strong><code>+ Adicionar Fotos</code></strong> para incluir imagens do circuito, componentes trocados ou antes/depois.</li>
+</ul>
+</li>
+<li><strong>Inserir Serviços &amp; Mão de Obra (Autonomia Completa):</strong><ul>
+<li>Adicione múltiplos procedimentos (ex: <em>Troca de Conector R$ 90</em>, <em>Limpeza R$ 120</em>, <em>Reparo de Placa R$ 250</em>) ou digite novos serviços com valores livres.</li>
+</ul>
+</li>
+<li><strong>Lançar Peças do Estoque:</strong><ul>
+<li>Selecione as peças utilizadas para dar baixa automática no estoque da loja.</li>
+</ul>
+</li>
+<li><strong>Finalizar ou Salvar:</strong><ul>
+<li>Ao salvar, o sistema <strong>grava automaticamente o tempo acumulado no cronômetro</strong> e as evidências fotográficas.</li>
+<li>Se aguarda retorno do cliente: clique em <strong>&quot;Enviar para Aprovação&quot;</strong>.</li>
+<li>Se concluído: marque o checklist e clique em <strong>&quot;✅ Finalizar / Pronto&quot;</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>📱 4. Perfil: Técnico Celulares &amp; Consoles</h2>
+<h3>🎯 Principais Atribuições:</h3>
+<ul>
+<li>Manutenção rápida de smartphones, tablets, controles e videogames.</li>
+<li>Abertura direta e autoatribuição imediata de OS no balcão híbrido.</li>
+<li>Execução de micro-solda, troca de conectores SMD e telas com registro fotográfico.</li>
+</ul>
+<h3>🚀 Passo a Passo no Módulo Celulares:</h3>
+<ol>
+<li>Acesse o menu <strong>&quot;Módulo Celulares&quot;</strong> (<code>/celular-hibrido</code>).</li>
+<li>Se o cliente estiver na sua frente, abra a OS marcando <strong>&quot;Iniciar atendimento imediatamente na minha bancada&quot;</strong>.</li>
+<li>O aparelho entra direto como <code>EM_ANDAMENTO</code> na sua bancada sem precisar passar pela fila de triagem.</li>
+<li>Anexe fotos da tela ou conector danificado diretamente na bancada.</li>
+</ol>
+<hr>
+<h2>🎓 5. Perfil: Técnico Trainee (Em Treinamento)</h2>
+<h3>🎯 Principais Atribuições:</h3>
+<ul>
+<li>Execução de manutenções de nível inicial sob supervisão (formatação, limpeza preventiva, troca de periféricos e testes de estresse).</li>
+<li>Apoio no balcão, triagem e controle de tempo de bancada.</li>
+<li>Capacitação contínua e comunicação com técnicos seniores via Chat/Voz.</li>
+</ul>
+<h3>🚀 Passo a Passo do Trainee:</h3>
+<ol>
+<li>Acesse <strong>&quot;Minha Bancada&quot;</strong> para ver os reparos designados pelo Gerente com o crachá especial de Trainee.</li>
+<li>Inicie o cronômetro para monitorar o seu ritmo de aprendizado em cada tarefa.</li>
+<li>Execute o checklist de testes de qualidade antes de liberar o aparelho.</li>
+<li>Se tiver qualquer dúvida durante o diagnóstico, utilize o <strong>Scooby Chat</strong> ou o <strong>Interfone de Voz</strong> para falar diretamente com o técnico sênior ou gerente.</li>
+</ol>
+<hr>
+<h2>🛡️ 6. Gerente de Oficina (Triagem &amp; Kanban)</h2>
+<h3>🎯 Principais Atribuições:</h3>
+<ul>
+<li>Gestão visual do fluxo de trabalho através do Painel Kanban.</li>
+<li>Distribuição e atribuição de aparelhos aos técnicos e trainees.</li>
+<li>Monitoramento de prazos críticos (SLA), tempos de bancada e eliminação de gargalos.</li>
+</ul>
+<h3>🚀 Passo a Passo no Kanban:</h3>
+<ol>
+<li>Acesse o menu <strong>&quot;Painel Triagem (Kanban)&quot;</strong> (<code>/gerente</code>).</li>
+<li>Na coluna <strong>Triagem &amp; Entrada</strong>, clique no botão <strong>&quot;+ Atribuir&quot;</strong> e designe o técnico responsável de acordo com a especialidade.</li>
+<li>Monitore os cartões com alertas vermelhos de <strong>SLA Crítico</strong> para cobrar prioridade nos testes ou aprovações.</li>
+<li>Abra os detalhes de qualquer OS para checar as fotos anexadas e o tempo que o técnico já trabalhou nela.</li>
+</ol>
+<hr>
+<h2>👑 7. Administrador Geral</h2>
+<h3>🎯 Principais Atribuições:</h3>
+<ul>
+<li>Apuração de faturamento consolidado, custos de estoque e lucro líquido real (Sigilo Exclusivo).</li>
+<li><strong>Auditoria de Produtividade &amp; Tempo:</strong> Acompanhamento do tempo que cada técnico dedica a cada chamado e quanto cada atendente vendeu.</li>
+<li>Cadastro e gestão de equipe (cargos, senhas e permissões).</li>
+<li>Controle de catálogo de peças, estoque de novos/usados e serviços com alertas de reposição.</li>
+<li>Manutenção do servidor, rotina de backups e infraestrutura de alta escala.</li>
+</ul>
+<h3>🚀 Passo a Passo Administrativo:</h3>
+<ol>
+<li><strong>Faturamento &amp; Relatórios:</strong> Acesse <code>/admin/relatorios</code> para ver a receita consolidada, lucro real, desempenho de vendas por atendente e produtividade técnica.</li>
+<li><strong>Auditoria de Bancada:</strong> Veja no extrato detalhado de cada OS a coluna com o <strong>Tempo Exato Trabalhado em Bancada</strong>.</li>
+<li><strong>Gerenciar Usuários:</strong> Acesse <code>/admin/usuarios</code> para criar novos logins, definir cargos (<em>Admin, Gerente, Atendente, Técnico, Trainee</em>) e resetar senhas.</li>
+<li><strong>Estoque de Novos &amp; Usados:</strong> Acesse <code>/admin/estoque</code> para cadastrar peças, notebooks seminovos, emitir relatórios e baixar/enviar planilhas Excel.</li>
+</ol>
+<hr>
+<h2>📊 8. Relatórios Gerenciais Avançados</h2>
+<p>O módulo de relatórios (<code>/admin/relatorios</code>) traz controle total da operação:</p>
+<h3>🛍️ A. Relatório de Vendas por Atendente:</h3>
+<ul>
+<li>Faturamento total e lucro gerado por cada atendente/vendedor no período.</li>
+<li>Botão <strong>&quot;Ver O Que Vendeu&quot;</strong>: abre o detalhamento com a lista exata de quais produtos e serviços cada atendente vendeu, quantidades e valores individuais.</li>
+</ul>
+<h3>⏱️ B. Produtividade Técnica &amp; Tempo de Bancada:</h3>
+<ul>
+<li>Tempo total acumulado pelo técnico em horas e minutos.</li>
+<li>Tempo médio por conserto (<code>ex: 45min / OS</code>).</li>
+<li>Tempo exato registrado no cronômetro em cada ordem de serviço finalizada.</li>
+</ul>
+<h3>💰 C. Faturamento Consolidado:</h3>
+<ul>
+<li>Visão global somando faturamento e lucro líquido de <strong>Ordens de Serviço + Vendas Balcão</strong>.</li>
+</ul>
+<hr>
+<h2>📸 9. Galeria de Fotos do Equipamento &amp; Rastreio por QR Code</h2>
+<ol>
+<li><strong>Galeria de Fotos:</strong><ul>
+<li>Tanto atendentes quanto técnicos podem anexar até 5 fotos por OS (fotos de entrada, avarias, placas, circuitos e testes).</li>
+<li>As fotos são compactadas automaticamente para economizar espaço e carregar instantaneamente.</li>
+</ul>
+</li>
+<li><strong>Rastreio por QR Code:</strong><ul>
+<li>O comprovante impresso contém um QR Code exclusivo para o cliente escanear no celular e acompanhar o status do reparo em tempo real.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>🖥️ 10. Instalação no Windows Server &amp; Rotina de Backups</h2>
+<p>Para rodar o Scooby OS 24/7 na rede local da empresa:</p>
+<ol>
+<li><strong>Instalação em 1 Clique:</strong><ul>
+<li>Execute o arquivo <strong><code>INSTALAR_WINDOWS_SERVER.bat</code></strong> como Administrador no servidor.</li>
+<li>O script configura o banco PostgreSQL 16, Redis 7, compila o frontend, libera a <strong>porta 3001 no Firewall</strong> e agenda backups diários.</li>
+</ul>
+</li>
+<li><strong>Backups Automáticos:</strong><ul>
+<li>Diariamente às <strong>19:00h</strong>, o script <code>GERAR_BACKUP_BANCO.bat</code> salva uma cópia <code>.sql</code> na pasta <code>backups/</code>, mantendo os últimos 30 dias.</li>
+</ul>
+</li>
+<li><strong>Restauração Rápida:</strong><ul>
+<li>Em caso de necessidade, execute <strong><code>RESTAURAR_BACKUP_BANCO.bat</code></strong> e escolha a cópia desejada.</li>
+</ul>
+</li>
+<li><strong>Atualizações Sem Perder Dados:</strong><ul>
+<li>Execute <strong><code>ATUALIZAR_SISTEMA_SEM_PERDER_DADOS.bat</code></strong> para baixar melhorias do GitHub sem alterar cadastros ou histórico.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>💬 11. Recursos Compartilhados: Chat &amp; Interfone de Voz</h2>
+<ul>
+<li><strong>Onde acessar:</strong> Botão <strong><code>💬 Chat &amp; Voz</code></strong> presente no canto superior de todas as telas.</li>
+<li><strong>Canais:</strong><ul>
+<li><code>#GERAL</code> (avisos gerais para toda a equipe)</li>
+<li><code>#BANCADA</code> (conversas técnicas entre bancadas e trainees)</li>
+</ul>
+</li>
+<li><strong>Recados de Voz:</strong> Segure o botão do microfone para enviar áudios rápidos gravados.</li>
+<li><strong>Interfone ao Vivo (Ligação de Voz):</strong> Clique no ícone de telefone ao lado do nome do colaborador. O sistema tocará o som de chamada no computador dele e iniciará a conversa por voz via WebRTC.</li>
+</ul>
+<hr>
+<h2>📋 12. Tabela Resumo de Permissões</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Funcionalidade</th>
+<th align="center">Atendente</th>
+<th align="center">Trainee</th>
+<th align="center">Técnico</th>
+<th align="center">Técnico Celular</th>
+<th align="center">Gerente</th>
+<th align="center">Administrador</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Abrir Novas OSs (com Fotos)</strong></td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Digitação Manual / Retroativa de OS</strong></td>
+<td align="center">✅ Sim</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Venda Balcão (PDV Expresso)</strong></td>
+<td align="center">✅ Sim</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Editar Preços Fixos de Serviços</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Minha Bancada &amp; Cronômetro</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Anexar Fotos Técnicas</strong></td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Painel Kanban Geral (Triagem)</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">✅ Sim</td>
+</tr>
+<tr>
+<td align="left"><strong>Auditoria de Tempo de Bancada</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">✅ Sim</td>
+<td align="center">👑 Completa</td>
+</tr>
+<tr>
+<td align="left"><strong>Relatórios de Atendentes &amp; Vendas</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">👑 Exclusivo</td>
+</tr>
+<tr>
+<td align="left"><strong>Faturamento &amp; Lucro Real</strong></td>
+<td align="center">❌ Sigilo</td>
+<td align="center">❌ Sigilo</td>
+<td align="center">❌ Sigilo</td>
+<td align="center">❌ Sigilo</td>
+<td align="center">❌ Sigilo</td>
+<td align="center">👑 Exclusivo</td>
+</tr>
+<tr>
+<td align="left"><strong>Gerenciar Usuários &amp; Senhas</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">👑 Exclusivo</td>
+</tr>
+<tr>
+<td align="left"><strong>Importar / Exportar Estoque Excel</strong></td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">❌ Não</td>
+<td align="center">👑 Exclusivo</td>
+</tr>
+</tbody></table>
+<hr>
+<p><em>Documento oficial desenvolvido por Emanuel Carvalho • Scooby Assistência Técnica.</em></p>
+
+</body>
+</html>
