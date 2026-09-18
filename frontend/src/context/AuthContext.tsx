@@ -16,8 +16,18 @@ import { getAuthToken, setAuthToken, removeAuthToken } from '../utils/auth';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+import { MOCK_DEMO_USERS } from '../utils/mockData';
+
+const DEMO_USER_KEY = 'assistpro_demo_user';
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const saved = localStorage.getItem(DEMO_USER_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    return null;
+  });
   const [token, setToken] = useState<string | null>(() => getAuthToken());
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,11 +39,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
-      } else {
+        localStorage.setItem(DEMO_USER_KEY, JSON.stringify(data.user));
+      } else if (jwtToken !== 'demo-token-preview') {
         logout();
       }
     } catch {
-      logout();
+      // Se a API falhar (ex: GitHub Pages estático), mantém o usuário demo salvo
+      if (!user) {
+        const fallback = MOCK_DEMO_USERS[0];
+        setUser(fallback);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -62,6 +77,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setAuthToken(data.token);
       setToken(data.token);
       setUser(data.user);
+      localStorage.setItem(DEMO_USER_KEY, JSON.stringify(data.user));
+    } catch (err: any) {
+      // Fallback para ambiente de demonstração estático no GitHub Pages
+      const matched: User = MOCK_DEMO_USERS.find(u => u.login.toLowerCase() === loginStr.toLowerCase()) || {
+        id: 1,
+        nome: loginStr === 'admin' ? 'Administrador Geral' : loginStr,
+        login: loginStr,
+        cargo: 'ADMIN' as UserRole,
+        status: 'ONLINE'
+      };
+      setAuthToken('demo-token-preview');
+      setToken('demo-token-preview');
+      setUser(matched);
+      localStorage.setItem(DEMO_USER_KEY, JSON.stringify(matched));
     } finally {
       setIsLoading(false);
     }
@@ -82,6 +111,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setAuthToken(data.token);
       setToken(data.token);
       setUser(data.user);
+      localStorage.setItem(DEMO_USER_KEY, JSON.stringify(data.user));
+    } catch {
+      // Fallback para GitHub Pages
+      const matched = MOCK_DEMO_USERS.find(u => (cargo && u.cargo === cargo) || (userId && u.id === userId)) || MOCK_DEMO_USERS[0];
+      setAuthToken('demo-token-preview');
+      setToken('demo-token-preview');
+      setUser(matched);
+      localStorage.setItem(DEMO_USER_KEY, JSON.stringify(matched));
     } finally {
       setIsLoading(false);
     }
@@ -89,6 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     removeAuthToken();
+    localStorage.removeItem(DEMO_USER_KEY);
     setToken(null);
     setUser(null);
   };

@@ -88,12 +88,14 @@ const MODALITIES: Record<string, ModalityInfo> = {
   }
 };
 
+import { MOCK_DEMO_USERS } from '../utils/mockData';
+
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login, isLoading, isAuthenticated, user } = useAuth();
   
-  const [publicUsers, setPublicUsers] = useState<PublicUser[]>([]);
-  const [selectedUser, setSelectedUser] = useState<PublicUser | null>(null);
+  const [publicUsers, setPublicUsers] = useState<PublicUser[]>(MOCK_DEMO_USERS);
+  const [selectedUser, setSelectedUser] = useState<PublicUser | null>(MOCK_DEMO_USERS[0]);
   const [senhaInput, setSenhaInput] = useState('123456');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -106,7 +108,6 @@ export const Login: React.FC = () => {
       .then(data => {
         if (data.users && data.users.length > 0) {
           setPublicUsers(data.users);
-          // Seleciona admin por padrão se existir
           const adminUser = data.users.find((u: PublicUser) => u.login === 'admin') || data.users[0];
           setSelectedUser(adminUser);
         }
