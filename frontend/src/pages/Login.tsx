@@ -173,18 +173,18 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] flex flex-col justify-between selection:bg-blue-600 selection:text-white font-sans antialiased relative transition-colors duration-300">
+    <div className="min-h-screen xl:h-screen flex flex-col justify-between bg-[#f5f5f7] dark:bg-black text-[#1d1d1f] dark:text-[#f5f5f7] selection:bg-blue-600 selection:text-white font-sans antialiased relative transition-colors duration-300 overflow-y-auto xl:overflow-hidden">
       
       {/* Barra de Navegação Apple Style */}
-      <header className="sticky top-0 z-50 w-full border-b border-black/10 dark:border-white/[0.08] bg-white/75 dark:bg-black/70 backdrop-blur-2xl px-6 py-3.5 transition-colors">
+      <header className="w-full border-b border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-black/80 backdrop-blur-xl px-6 py-2.5 transition-colors shrink-0 z-50">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-zinc-700 to-zinc-900 border border-black/10 dark:border-white/20 flex items-center justify-center shadow-sm">
-              <Wrench className="w-4 h-4 text-white" />
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-zinc-700 to-zinc-900 border border-black/10 dark:border-white/20 flex items-center justify-center shadow-sm">
+              <Wrench className="w-3.5 h-3.5 text-white" />
             </div>
             <div className="flex items-center gap-1.5">
               <span className="font-semibold tracking-tight text-zinc-900 dark:text-white text-sm">AssistPro</span>
-              <span className="text-[10px] font-medium tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/10">
+              <span className="text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded-full bg-black/[0.05] dark:bg-white/[0.08] text-zinc-700 dark:text-zinc-300 border border-black/10 dark:border-white/10">
                 OS
               </span>
             </div>
@@ -194,7 +194,7 @@ export const Login: React.FC = () => {
             <ThemeToggle />
             <Link 
               to="/consulta" 
-              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center gap-1.5 rounded-full px-3.5 py-1.5 bg-black/[0.04] dark:bg-white/[0.04] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] border border-black/10 dark:border-white/[0.06]"
+              className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center gap-1.5 rounded-full px-3 py-1 bg-black/[0.04] dark:bg-white/[0.05] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] border border-black/10 dark:border-white/[0.08]"
             >
               <Search className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
               <span>Consulta Pública da OS</span>
@@ -203,27 +203,27 @@ export const Login: React.FC = () => {
         </div>
       </header>
 
-      {/* Conteúdo Principal */}
-      <main className="max-w-6xl w-full mx-auto px-6 py-12 flex-1 flex flex-col justify-center space-y-12 text-left">
+      {/* Conteúdo Principal Ajustado para Caber em 100vh */}
+      <main className="max-w-6xl w-full mx-auto px-4 sm:px-6 py-3 sm:py-5 flex-1 flex flex-col justify-center gap-3 sm:gap-4 text-left">
         
-        {/* Headline Apple */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <span className="text-xs font-semibold tracking-wider uppercase text-blue-600 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+        {/* Headline Apple Compacta */}
+        <div className="text-center space-y-1.5 max-w-2xl mx-auto">
+          <span className="text-[11px] font-semibold tracking-wider uppercase text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 px-3 py-0.5 rounded-full inline-flex items-center gap-1.5 shadow-sm">
             <Sparkles className="w-3 h-3" /> Sistema de Gestão para Assistência Técnica
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-zinc-900 dark:text-white">
-            Simplicidade na forma.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-800 via-zinc-600 to-zinc-500 dark:from-zinc-200 dark:via-zinc-400 dark:to-zinc-600">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight">
+            Simplicidade na forma.{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-800 via-zinc-600 to-zinc-500 dark:from-zinc-200 dark:via-zinc-400 dark:to-zinc-500">
               Poder absoluto na bancada.
             </span>
           </h1>
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed pt-1">
-            Selecione uma das estações de trabalho abaixo para entrar com o perfil correspondente.
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 font-normal">
+            Selecione uma das estações de trabalho abaixo para entrar no sistema.
           </p>
         </div>
 
-        {/* Grade de Perfis por Modalidade (Cards Estilo Apple Hardware) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        {/* Grade de Perfis por Modalidade */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {publicUsers.map((u) => {
             const meta = MODALITIES[u.cargo] || {
               cargo: u.cargo,
@@ -243,57 +243,57 @@ export const Login: React.FC = () => {
               <div
                 key={u.id}
                 onClick={() => handleSelectModality(u)}
-                className={`relative rounded-3xl p-5 border text-left transition-all duration-300 flex flex-col justify-between cursor-pointer group select-none ${
+                className={`relative rounded-2xl p-3.5 border text-left transition-all duration-200 flex flex-col justify-between cursor-pointer group select-none ${
                   isSelected 
-                    ? 'bg-white dark:bg-[#161617] border-blue-500/40 dark:border-white/30 shadow-[0_12px_36px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.8)] scale-[1.02] ring-1 ring-blue-500/30 dark:ring-white/20' 
-                    : 'bg-white/80 dark:bg-[#111113]/80 hover:bg-white dark:hover:bg-[#161617] border-black/5 dark:border-white/[0.08] hover:border-black/15 dark:hover:border-white/[0.18] shadow-sm'
+                    ? 'bg-white dark:bg-[#161617] border-blue-500 dark:border-blue-400 shadow-md dark:shadow-xl ring-2 ring-blue-500/20 dark:ring-blue-400/20 scale-[1.01]' 
+                    : 'bg-white/90 dark:bg-[#121214]/80 hover:bg-white dark:hover:bg-[#161617] border-black/10 dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/[0.16] shadow-sm'
                 }`}
               >
                 {/* Header do Card */}
-                <div className="space-y-4">
+                <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <div className={`w-11 h-11 rounded-2xl bg-gradient-to-tr ${meta.gradient} p-0.5 shadow-md flex items-center justify-center`}>
-                      <div className="w-full h-full bg-white dark:bg-black/60 rounded-[14px] flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-zinc-900 dark:text-white" />
+                    <div className={`w-9 h-9 rounded-xl bg-gradient-to-tr ${meta.gradient} p-0.5 shadow-sm flex items-center justify-center`}>
+                      <div className="w-full h-full bg-white dark:bg-black/60 rounded-[10px] flex items-center justify-center">
+                        <Icon className="w-4 h-4 text-zinc-900 dark:text-white" />
                       </div>
                     </div>
                     {isSelected && (
-                      <span className="w-5 h-5 rounded-full bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center text-[11px] font-bold shadow-sm">
-                        <Check className="w-3 h-3 stroke-[3]" />
+                      <span className="w-4 h-4 rounded-full bg-blue-600 dark:bg-blue-500 text-white flex items-center justify-center text-[9px] font-bold shadow-sm">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
                       </span>
                     )}
                   </div>
 
                   <div>
-                    <span className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border ${meta.badgeBg}`}>
+                    <span className={`text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border ${meta.badgeBg}`}>
                       {meta.tag}
                     </span>
-                    <h2 className="text-base font-bold text-zinc-900 dark:text-white tracking-tight mt-2.5">
+                    <h2 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight mt-1.5">
                       {meta.title}
                     </h2>
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed line-clamp-3">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 leading-snug line-clamp-2">
                       {meta.desc}
                     </p>
                   </div>
                 </div>
 
                 {/* Ação do Card */}
-                <div className="pt-5 mt-4 border-t border-black/5 dark:border-white/[0.06] flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">@{u.login}</span>
+                <div className="pt-2.5 mt-2.5 border-t border-black/5 dark:border-white/[0.06] flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-zinc-400 dark:text-zinc-500">@{u.login}</span>
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleQuickLogin(u);
                     }}
-                    className={`text-xs font-semibold px-3 py-1.5 rounded-full transition-all flex items-center gap-1 cursor-pointer ${
+                    className={`text-[11px] font-semibold px-2.5 py-1 rounded-full transition-all flex items-center gap-1 cursor-pointer ${
                       isSelected
-                        ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-md'
-                        : 'bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white'
+                        ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-sm'
+                        : 'bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-zinc-700 dark:text-zinc-300'
                     }`}
                   >
                     <span>Acessar</span>
-                    <ChevronRight className="w-3 h-3" />
+                    <ChevronRight className="w-2.5 h-2.5" />
                   </button>
                 </div>
               </div>
@@ -301,72 +301,67 @@ export const Login: React.FC = () => {
           })}
         </div>
 
-        {/* Caixa de Entrada de Senha Estilo Apple Dialog */}
+        {/* Barra de Acesso e Senha Integrada (Sempre Visível sem Scroll) */}
         {selectedUser && (
-          <div className="max-w-md w-full mx-auto bg-white dark:bg-[#161617] rounded-3xl p-6 border border-black/10 dark:border-white/[0.12] shadow-2xl space-y-4 text-center animate-slide-up transition-colors">
+          <div className="max-w-2xl w-full mx-auto bg-white dark:bg-[#161617] rounded-2xl p-3.5 sm:p-4 border border-black/10 dark:border-white/[0.12] shadow-xl space-y-2.5 text-center animate-slide-up transition-all">
             
-            <div className="space-y-1">
-              <div className="w-10 h-10 rounded-full bg-black/[0.04] dark:bg-white/[0.08] border border-black/10 dark:border-white/10 text-zinc-800 dark:text-white flex items-center justify-center mx-auto mb-2">
-                <Lock className="w-4 h-4 text-zinc-600 dark:text-zinc-300" />
+            <div className="flex flex-wrap items-center justify-between gap-2 px-1 text-xs">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                  <Lock className="w-3 h-3" />
+                </div>
+                <span className="font-bold text-zinc-900 dark:text-white">
+                  Entrar como {selectedUser.nome}
+                </span>
+                <span className="text-[11px] font-mono text-zinc-400 dark:text-zinc-500">(@{selectedUser.login})</span>
               </div>
-              <h3 className="text-base font-bold text-zinc-900 dark:text-white tracking-tight">
-                Entrar como {selectedUser.nome}
-              </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                Estação de trabalho: <span className="font-medium text-zinc-800 dark:text-zinc-200">{selectedUser.cargo}</span> • Login: <span className="font-mono text-zinc-800 dark:text-zinc-200">@{selectedUser.login}</span>
-              </p>
+
+              <div className="flex items-center gap-2 text-[11px] text-zinc-500">
+                <span>Senha padrão: <strong className="text-zinc-800 dark:text-zinc-300 font-mono">123456</strong></span>
+                <button 
+                  type="button"
+                  onClick={() => setSenhaInput('123456')}
+                  className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer font-medium"
+                >
+                  Preencher
+                </button>
+              </div>
             </div>
 
             {error && (
-              <div className="p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-500/30 text-rose-800 dark:text-rose-300 text-xs">
+              <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-500/30 text-rose-800 dark:text-rose-300 text-xs">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-3.5">
-              <div className="relative">
-                <input
-                  ref={passwordInputRef}
-                  type="password"
-                  required
-                  placeholder="Digite a senha..."
-                  value={senhaInput}
-                  onChange={(e) => setSenhaInput(e.target.value)}
-                  className="w-full px-5 py-3 rounded-full bg-black/[0.03] dark:bg-black/60 border border-black/10 dark:border-white/15 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm focus:border-blue-500 focus:outline-none tracking-wider text-center transition-all"
-                />
-              </div>
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center gap-2">
+              <input
+                ref={passwordInputRef}
+                type="password"
+                required
+                placeholder="Digite a senha de acesso..."
+                value={senhaInput}
+                onChange={(e) => setSenhaInput(e.target.value)}
+                className="flex-1 w-full px-4 py-2 rounded-full bg-black/[0.03] dark:bg-black/60 border border-black/10 dark:border-white/15 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-xs sm:text-sm focus:border-blue-500 focus:outline-none tracking-wider text-center sm:text-left transition-all"
+              />
 
-              <div className="flex items-center gap-2">
-                <button
-                  type="submit"
-                  disabled={submitting || isLoading}
-                  className="flex-1 py-3 apple-button-primary text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-lg disabled:opacity-50"
-                >
-                  <span>{submitting ? 'Verificando...' : 'Entrar no Sistema'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </form>
-
-            <div className="pt-2 flex items-center justify-between text-[11px] text-zinc-500">
-              <span>Senha padrão: <strong className="text-zinc-700 dark:text-zinc-400 font-mono">123456</strong></span>
-              <button 
-                type="button"
-                onClick={() => setSenhaInput('123456')}
-                className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer font-medium"
+              <button
+                type="submit"
+                disabled={submitting || isLoading}
+                className="w-full sm:w-auto px-6 py-2 apple-button-primary text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer shadow-md shrink-0 disabled:opacity-50"
               >
-                Preencher 123456
+                <span>{submitting ? 'Verificando...' : 'Acessar Sistema'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
-            </div>
+            </form>
           </div>
         )}
 
       </main>
 
-      {/* Rodapé Apple */}
-      <footer className="border-t border-black/10 dark:border-white/[0.08] py-6 px-6 bg-white/60 dark:bg-black text-center text-xs text-zinc-500 space-y-1 transition-colors">
+      {/* Rodapé Apple Compacto */}
+      <footer className="border-t border-black/10 dark:border-white/[0.08] py-2.5 px-4 bg-white/70 dark:bg-black text-center text-[11px] text-zinc-400 dark:text-zinc-500 transition-colors shrink-0">
         <p>AssistPro OS • Plataforma de Gestão Profissional para Assistência Técnica</p>
-        <p className="text-[11px] text-zinc-400 dark:text-zinc-600">Projetado para desempenho em bancada, alta velocidade e facilidade de uso.</p>
       </footer>
 
     </div>
