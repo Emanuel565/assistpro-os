@@ -34,11 +34,11 @@ interface NavbarProps {
 }
 
 const MODALITY_SHORT_TITLES: Record<string, { title: string; color: string; dot: string }> = {
-  ADMIN: { title: 'Administrador', color: 'text-blue-400', dot: 'bg-blue-400' },
-  GERENTE: { title: 'Gerente Oficina', color: 'text-amber-400', dot: 'bg-amber-400' },
-  ATENDENTE: { title: 'Atendente Balcão', color: 'text-emerald-400', dot: 'bg-emerald-400' },
-  TECNICO: { title: 'Técnico Hardware', color: 'text-cyan-400', dot: 'bg-cyan-400' },
-  TECNICO_CELULAR: { title: 'Especialista Mobile', color: 'text-purple-400', dot: 'bg-purple-400' }
+  ADMIN: { title: 'Administrador', color: 'text-blue-700 dark:text-blue-400', dot: 'bg-blue-500' },
+  GERENTE: { title: 'Gerente Oficina', color: 'text-amber-800 dark:text-amber-400', dot: 'bg-amber-500' },
+  ATENDENTE: { title: 'Atendente Balcão', color: 'text-emerald-700 dark:text-emerald-400', dot: 'bg-emerald-500' },
+  TECNICO: { title: 'Técnico Hardware', color: 'text-cyan-700 dark:text-cyan-400', dot: 'bg-cyan-500' },
+  TECNICO_CELULAR: { title: 'Especialista Mobile', color: 'text-purple-700 dark:text-purple-400', dot: 'bg-purple-500' }
 };
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenChat, unreadChatCount }) => {

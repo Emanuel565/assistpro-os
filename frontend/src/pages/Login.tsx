@@ -44,7 +44,7 @@ const MODALITIES: Record<string, ModalityInfo> = {
     desc: 'Controle financeiro total, DRE, comissões, relatórios executivos e configurações completas.',
     icon: ShieldCheck,
     gradient: 'from-blue-500 to-indigo-600',
-    badgeBg: 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+    badgeBg: 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-200/80 dark:border-blue-500/20'
   },
   GERENTE: {
     cargo: 'GERENTE',
@@ -54,7 +54,7 @@ const MODALITIES: Record<string, ModalityInfo> = {
     desc: 'Quadro Kanban em tempo real, monitoramento de SLA, distribuição de técnicos e controle de prazos.',
     icon: LayoutDashboard,
     gradient: 'from-amber-500 to-orange-600',
-    badgeBg: 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+    badgeBg: 'bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-200/80 dark:border-amber-500/20'
   },
   ATENDENTE: {
     cargo: 'ATENDENTE',
@@ -64,7 +64,7 @@ const MODALITIES: Record<string, ModalityInfo> = {
     desc: 'Abertura rápida de OS com checklist e fotos, frente de caixa (PDV), recibos e aviso ao cliente.',
     icon: ClipboardList,
     gradient: 'from-emerald-500 to-teal-600',
-    badgeBg: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+    badgeBg: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200/80 dark:border-emerald-500/20'
   },
   TECNICO: {
     cargo: 'TECNICO',
@@ -74,7 +74,7 @@ const MODALITIES: Record<string, ModalityInfo> = {
     desc: 'Bancada de reparo para notebooks, PCs gamer, placas-mãe, diagnósticos e cronômetro de bancada.',
     icon: Wrench,
     gradient: 'from-cyan-500 to-blue-600',
-    badgeBg: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
+    badgeBg: 'bg-cyan-50 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-200/80 dark:border-cyan-500/20'
   },
   TECNICO_CELULAR: {
     cargo: 'TECNICO_CELULAR',
@@ -84,7 +84,7 @@ const MODALITIES: Record<string, ModalityInfo> = {
     desc: 'Reparo avançado de iPhones, Android, tablets, troca de telas, micro-solda e baterias.',
     icon: Smartphone,
     gradient: 'from-purple-500 to-pink-600',
-    badgeBg: 'bg-purple-500/10 text-purple-400 border-purple-500/20'
+    badgeBg: 'bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-200/80 dark:border-purple-500/20'
   }
 };
 

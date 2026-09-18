@@ -94,44 +94,44 @@ export const GerenteKanban: React.FC = () => {
   const kanbanColumns: { id: OSStatus; title: string; color: string; border: string; icon: any }[] = [
     {
       id: 'TRIAGEM',
-      title: 'Triagem & Entrada',
-      color: 'bg-indigo-500/10 text-indigo-300',
-      border: 'border-indigo-500/30',
+      title: 'Triagem & Diagnóstico',
+      color: 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+      border: 'border-indigo-200 dark:border-indigo-500/30',
       icon: Clock
     },
     {
       id: 'EM_ANDAMENTO',
       title: 'Bancada / Em Reparo',
-      color: 'bg-blue-500/10 text-blue-300',
-      border: 'border-blue-500/30',
+      color: 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300',
+      border: 'border-blue-200 dark:border-blue-500/30',
       icon: Wrench
     },
     {
       id: 'AGUARDANDO_APROVACAO',
       title: 'Aguardando Aprovação',
-      color: 'bg-orange-500/15 text-orange-300',
-      border: 'border-orange-500/40',
+      color: 'bg-orange-50 dark:bg-orange-500/15 text-orange-800 dark:text-orange-300',
+      border: 'border-orange-200 dark:border-orange-500/40',
       icon: FileCheck
     },
     {
       id: 'AGUARDANDO_PECA',
       title: 'Aguardando Peça',
-      color: 'bg-amber-500/10 text-amber-300',
-      border: 'border-amber-500/30',
+      color: 'bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300',
+      border: 'border-amber-200 dark:border-amber-500/30',
       icon: Hourglass
     },
     {
       id: 'TESTES',
       title: 'Testes de Qualidade',
-      color: 'bg-purple-500/10 text-purple-300',
-      border: 'border-purple-500/30',
+      color: 'bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300',
+      border: 'border-purple-200 dark:border-purple-500/30',
       icon: CheckCircle
     },
     {
       id: 'CONCLUIDO',
       title: 'Pronto p/ Retirada',
-      color: 'bg-emerald-500/10 text-emerald-300',
-      border: 'border-emerald-500/30',
+      color: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+      border: 'border-emerald-200 dark:border-emerald-500/30',
       icon: CheckCircle
     }
   ];
@@ -147,7 +147,7 @@ export const GerenteKanban: React.FC = () => {
               <p className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Ordens Ativas</p>
               <p className="text-3xl font-black text-zinc-900 dark:text-white tracking-tight mt-1">{stats.totalOSAtivas}</p>
             </div>
-            <div className="w-11 h-11 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-blue-700 dark:text-blue-400 flex items-center justify-center">
               <LayoutDashboard className="w-5 h-5" />
             </div>
           </div>
@@ -155,11 +155,11 @@ export const GerenteKanban: React.FC = () => {
           <div className="bg-white dark:bg-[#121214] rounded-3xl p-5 flex items-center justify-between border border-black/10 dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-md">
             <div>
               <p className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Aguardando Aprovação</p>
-              <p className="text-3xl font-black text-orange-500 dark:text-orange-400 tracking-tight mt-1">
+              <p className="text-3xl font-black text-orange-600 dark:text-orange-400 tracking-tight mt-1">
                 {osList.filter(o => o.status === 'AGUARDANDO_APROVACAO').length}
               </p>
             </div>
-            <div className="w-11 h-11 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-500 dark:text-orange-400 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center">
               <FileCheck className="w-5 h-5" />
             </div>
           </div>
@@ -167,9 +167,9 @@ export const GerenteKanban: React.FC = () => {
           <div className="bg-white dark:bg-[#121214] rounded-3xl p-5 flex items-center justify-between border border-black/10 dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-md">
             <div>
               <p className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">SLA Crítico / Vencidas</p>
-              <p className="text-3xl font-black text-rose-500 dark:text-rose-400 tracking-tight mt-1">{stats.sla.vencidas + stats.sla.urgentesHoje}</p>
+              <p className="text-3xl font-black text-rose-600 dark:text-rose-400 tracking-tight mt-1">{stats.sla.vencidas + stats.sla.urgentesHoje}</p>
             </div>
-            <div className="w-11 h-11 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 dark:text-rose-400 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center">
               <AlertTriangle className="w-5 h-5" />
             </div>
           </div>
@@ -178,11 +178,11 @@ export const GerenteKanban: React.FC = () => {
             <div className="bg-white dark:bg-[#121214] rounded-3xl p-5 flex items-center justify-between border border-black/10 dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-md">
               <div>
                 <p className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Faturamento Concluído</p>
-                <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight mt-1">
+                <p className="text-2xl font-black text-emerald-700 dark:text-emerald-400 tracking-tight mt-1">
                   {formatCurrency(stats.faturamento?.totalConcluido || 0)}
                 </p>
               </div>
-              <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
                 <DollarSign className="w-5 h-5" />
               </div>
             </div>
@@ -190,11 +190,11 @@ export const GerenteKanban: React.FC = () => {
             <div className="bg-white dark:bg-[#121214] rounded-3xl p-5 flex items-center justify-between border border-black/10 dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-md">
               <div>
                 <p className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Prontos p/ Retirada</p>
-                <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight mt-1">
+                <p className="text-3xl font-black text-emerald-700 dark:text-emerald-400 tracking-tight mt-1">
                   {osList.filter(o => o.status === 'CONCLUIDO').length}
                 </p>
               </div>
-              <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
                 <CheckCircle className="w-5 h-5" />
               </div>
             </div>
