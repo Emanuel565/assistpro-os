@@ -203,8 +203,8 @@ O executável final para distribuição será gerado na pasta `desktop/dist-inst
         <sub><b>Emanuel Carvalho</b></sub>
       </a>
       <br />
-      <sub><b>Senior Software Engineer & Systems Architect</b></sub><br />
-      <sub>Especialista em <b>Engenharia Reversa</b> | <b>AI Trainer</b> | Arquiteturas SaaS & Web</sub>
+      <sub><b>Desenvolvedor Fullstack</b></sub><br />
+      <sub>React · TypeScript · Node.js · Docker</sub>
       <br /><br />
       <a href="https://github.com/Emanuel565">
         <img src="https://img.shields.io/badge/GitHub-Emanuel565-181717?style=flat-square&logo=github" alt="GitHub"/>
