@@ -209,7 +209,7 @@ O executável final para distribuição será gerado na pasta `desktop/dist-inst
       <a href="https://github.com/Emanuel565">
         <img src="https://img.shields.io/badge/GitHub-Emanuel565-181717?style=flat-square&logo=github" alt="GitHub"/>
       </a>
-      <a href="https://www.linkedin.com/in/emanuel-carvalho-390232182/">
+      <a href="https://www.linkedin.com/in/emanuel-pereira-de-carvalho-dev/">
         <img src="https://img.shields.io/badge/LinkedIn-Emanuel_Carvalho-0077b5?style=flat-square&logo=linkedin" alt="LinkedIn"/>
       </a>
       <a href="https://wa.me/5561983403282?text=Ol%C3%A1+Emanuel+Carvalho">
